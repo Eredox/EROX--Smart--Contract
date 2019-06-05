@@ -1,5 +1,6 @@
 # EROX--Smart--Contract
 
+
 === 'Eredox' Token contract with following features ===
       => ERC20 Compliance
       => Higher degree of control by owner - safeguard functionality
@@ -8,6 +9,7 @@
       => user whitelisting 
       => Token swap functionality (implemented for the future use)
       => Stagged ICO
+
 
 
 ======================= Quick Stats ===================
