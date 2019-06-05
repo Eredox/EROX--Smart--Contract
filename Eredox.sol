@@ -1,7 +1,3 @@
-/**
- * Source Code first verified at https://etherscan.io on Tuesday, June 4, 2019
- (UTC) */
-
 pragma solidity 0.5.9; /*
 
 ___________________________________________________________________
@@ -134,7 +130,7 @@ contract Eredox is owned {
     string constant public symbol = "EROX";
     uint256 constant public decimals = 18;
     uint256 public totalSupply = 4000000000 * (10**decimals);   //4 billion tokens
-    uint256 public maxTokenSupply = totalSupply;
+    uint256 public maxTokenSupply;
     bool public safeguard = false;  //putting safeguard on will halt all non-owner functions
     bool public tokenSwap = false;  //when tokenSwap will be on then all the token transfer to contract will trigger token swap
 
@@ -156,6 +152,9 @@ contract Eredox is owned {
         
     // This generates a public event for frozen (blacklisting) accounts
     event FrozenAccount(address target, bool frozen);
+    
+    // This will log approval of token Transfer
+    event Approval(address indexed from, address indexed spender, uint256 value);
 
     // This is for token swap
     event TokenSwap(address indexed user, uint256 value);
@@ -230,6 +229,7 @@ contract Eredox is owned {
         require(!safeguard);
         require(balanceOf[msg.sender] >= _value, "Balance does not have enough tokens");
         allowance[msg.sender][_spender] = _value;
+        emit Approval(msg.sender, _spender, _value);
         return true;
     }
 
@@ -243,6 +243,8 @@ contract Eredox is owned {
         uint256 tokens = totalSupply / 2;
         balanceOf[owner] = tokens;
         balanceOf[address(this)] = tokens;
+        
+        maxTokenSupply = totalSupply;
         
         //firing event which logs this transaction
         emit Transfer(address(0), owner, tokens);
