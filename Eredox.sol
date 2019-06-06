@@ -1,7 +1,3 @@
-/**
- * Source Code first verified at https://etherscan.io on Tuesday, June 4, 2019
- (UTC) */
-
 pragma solidity 0.5.9; /*
 
 ___________________________________________________________________
