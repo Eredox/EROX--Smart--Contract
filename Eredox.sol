@@ -1,3 +1,7 @@
+/**
+ * Source Code first verified at https://etherscan.io on Tuesday, June 4, 2019
+ (UTC) */
+
 pragma solidity 0.5.9; /*
 
 ___________________________________________________________________
@@ -471,6 +475,10 @@ contract Eredox is owned {
         
         // calculate token amount to be sent
         uint256 token = msg.value.mul(findCurrentTokenPrice());  //weiamount * current token price
+        
+        //adding purchase bonus if applicable
+        token = token.add(token * purchaseBonusPercentage(msg.value) / 100 );
+        
         tokensSold = tokensSold.add(token);
         etherRaised += msg.value;
         _transfer(address(this), msg.sender, token);                  //makes the transfers
@@ -503,6 +511,20 @@ contract Eredox is owned {
         //by default it will return zero
         
     }
+    
+    /**
+     * This will calculate the percentage for the purchase bonus.
+     * Purchase bonus is certain percentage of extra tokens depending on amount of ether invested.
+     */
+     function purchaseBonusPercentage(uint256 etherInvested) pure internal returns(uint256){
+         
+         if(etherInvested < (5 * 1e18)) return 0;
+         
+         if(etherInvested >= (5 * 1e18) && etherInvested <  (15 * 1e18)) return 5;
+         
+         if(etherInvested >= (15 * 1e18)) return 15;
+         
+     }
 
     
     /**
