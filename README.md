@@ -1,4 +1,4 @@
-# EREDOX--Smart--Contract
+# EROX--Smart--Contract
 
 
 === 'Eredox' Token contract with following features ===
